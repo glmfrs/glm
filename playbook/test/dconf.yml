@@ -1,0 +1,173 @@
+---
+- hosts: all
+  remote_user: USER
+  tasks:
+
+  - name: Gnome Calendrier Semaines
+    dconf:
+      key: "/org/gnome/desktop/calendar/show-weekdate"
+      value: "true"
+
+  - name: Gnome Traduction des repertoires
+    dconf:
+      key: "/org/gnome/desktop/app-folders/folders/Sundry/translate"
+      value: "false"
+  - name: Gnome Traduction des repertoires
+    dconf:
+      key: "/org/gnome/desktop/app-folders/folders/Utilities/translate"
+      value: "false"
+
+  - name: Gnome Timezone auto
+    dconf:
+      key: "/org/gnome/desktop/datetime/automatic-timezone"
+      value: "true"
+  - name: Gnome Horloge 24H
+    dconf:
+      key: "/org/gnome/desktop/interface/clock-format"
+      value: "true"
+  - name: Gnome Horloge Date
+    dconf:
+      key: "/org/gnome/desktop/interface/clock-show-date"
+      value: "true"
+  - name: Gnome Horloge Jour
+    dconf:
+      key: "/org/gnome/desktop/interface/clock-show-weekday"
+      value: "true"
+
+  - name: Gnome Typo Document
+    dconf:
+      key: "/org/gnome/desktop/interface/document-font-name"
+      value: "Sans10"
+  - name: Gnome Animation
+    dconf:
+      key: "/org/gnome/desktop/interface/enable-animations"
+      value: "false"
+  - name: Gnome Typo Générale
+    dconf:
+      key: "/org/gnome/desktop/interface/font-name"
+      value: "Cantarell 10"
+  - name: Gnome Typo Monospace
+    dconf:
+      key: "/org/gnome/desktop/interface/monospace-font-name"
+      value: "Monospace 10"
+  - name: Gnome Theme Dark
+    dconf:
+      key: "/org/gnome/desktop/interface/gtk-theme"
+      value: "Adwaita-dark"
+
+  - name: Gnome Automount
+    dconf:
+      key: "/org/gnome/desktop/media-handling/automount"
+      value: "false"
+  - name: Gnome Automount
+    dconf:
+      key: "/org/gnome/desktop/media-handling/automount-open"
+      value: "false"
+
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/disable-while-typing"
+      value: "true"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/edge-scrolling-enabled"
+      value: "false"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+      value: "false"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/send-events"
+      value: "enabled"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/tap-and-drag"
+      value: "true"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+      value: "true"
+  - name: Gnome Touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/two-finger-scrolling-enabled"
+      value: "true"
+
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/old-files-age"
+      value: "10"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/recent-files-max-age"
+      value: "7"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/remember-app-usage"
+      value: "false"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/remember-recent-files"
+      value: "true"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/remember-old-temp-files"
+      value: "true"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/remember-old-trash-files"
+      value: "true"
+  - name: Gnome Privacy
+    dconf:
+      key: "/org/gnome/desktop/privacy/show-full-name-in-top-bar"
+      value: "true"
+
+  - name: Gnome Screensaver
+    dconf:
+      key: "/org/gnome/desktop/screensaver/lock-enabled"
+      value: "true"
+  - name: Gnome Screensaver
+    dconf:
+      key: "/org/gnome/desktop/screensaver/logout-delay"
+      value: "600"
+  - name: Gnome Screensaver
+    dconf:
+      key: "/org/gnome/desktop/screensaver/logout-delay"
+      value: "600"
+  - name: Gnome Screensaver
+    dconf:
+      key: "/org/gnome/desktop/screensaver/picture-uri"
+      value: "'file:///home/USER/.config/noir.jpg'"
+  - name: Gnome Screensaver
+    dconf:
+      key: "/org/gnome/desktop/screensaver/show-full-name-in-top-bar"
+      value: "false"
+
+  - name: Gnome Sound
+    dconf:
+      key: "/org/gnome/desktop/sound/event-sounds"
+      value: "false"
+
+  - name: Gnome WM
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/button-layout"
+      value: "appmenu:minimize,maximize,close"
+  - name: Gnome WM
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/button-layout"
+      value: "Cantarell Bold 10"
+
+  - name: Gnome Menu
+    copy:
+      src: /usr/share/applications/htop.desktop
+      dest: /usr/share/applications/htop.desktop-hidden
+
+  - name: Gnome Menu
+    copy:
+      src: /usr/share/applications/htop.desktop
+      dest: /usr/share/applications/htop.desktop-hidden
+
+  - name: Gnome Menu
+    copy:
+      src: /usr/share/applications/vim.desktop
+      dest: /usr/share/applications/vim.desktop-hidden

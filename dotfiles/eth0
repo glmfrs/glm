@@ -1,0 +1,30 @@
+### /etc/sysconfig/network-scripts/ifcfg-eth0
+# BOOTPROTO=static
+# IPADDR=
+# PREFIX=
+# GATEWAY=
+# HWADDR=
+BOOTPROTO=dhcp
+NAME=eth0
+DEVICE=eth0
+ONBOOT=yes
+DEFROUTE=yes
+TYPE=Ethernet
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+
+### /etc/network/interfaces
+auto eth0
+allow-hotplug eth0
+iface eth0 inet dhcp
+#iface eth0 inet static
+#   address
+#   netmask
+#   gateway
+#   hwaddress
+#   nameserver
+# up route add -net 1.2.3.4/24 gw 5.6.7.8 dev eth0

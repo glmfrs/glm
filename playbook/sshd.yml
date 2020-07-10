@@ -1,0 +1,89 @@
+---
+- name: SSHD clefs ssh autorisees pour root
+  authorized_key:
+    user: root
+    state: present
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
+
+- name: SSHD installation des paquets
+  yum:
+    name:
+      - openssh-server
+      - openssh-clients
+    state: latest
+    update_cache: yes
+
+- name: SSHD fichier de configuration, en écoute sur 22 et 2222
+  copy:
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      ### /etc/ssh/sshd_config
+      Port 22
+      Port 2222
+      Protocol 2
+      HostKey /etc/ssh/ssh_host_rsa_key
+      HostKey /etc/ssh/ssh_host_ed25519_key
+      UsePrivilegeSeparation sandbox
+      KeyRegenerationInterval 3600
+      SyslogFacility AUTHPRIV
+      LogLevel VERBOSE
+      MaxAuthTries 5
+      LoginGraceTime 60
+      StrictModes yes
+      PubkeyAuthentication yes
+      AuthorizedKeysFile .ssh/authorized_keys
+      IgnoreRhosts yes
+      PermitEmptyPasswords no
+      ChallengeResponseAuthentication yes
+      X11Forwarding no
+      PrintMotd yes
+      PermitUserEnvironment no
+      PrintLastLog yes
+      ClientAliveInterval 60
+      ClientAliveCountMax 0
+      MaxStartups 5:15:30
+      AcceptEnv LANG LC_*
+      Subsystem sftp /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
+      UsePAM yes
+      UseDNS no
+      # KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+      # Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+      # MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+      AllowAgentForwarding yes
+      AllowTcpForwarding yes
+      PermitTunnel yes
+      # DenyUsers root test guest admin snort apache nobody
+      # AllowUsers
+      # AllowGroups
+      # AuthenticationMethods publickey
+      PasswordAuthentication yes
+      # PermitRootLogin without-password prohibit-password
+
+- name: SSHD ouverture des ports 22 et 2222
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    permanent: yes
+    immediate: yes
+  with_items:
+      - 22/tcp
+      - 2222/tcp
+
+- name: SSHD SELinux autorisation de 2222
+  seport:
+    ports: 2222
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+  ignore_errors: yes
+
+- name: SSHD demarrage automatique
+  systemd:
+    name: sshd
+    state: restarted
+    enabled: yes
+    masked: no
+    daemon_reload: yes

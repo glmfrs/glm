@@ -1,0 +1,4 @@
+### /etc/apt/sources.list
+deb https://deb.debian.org/debian buster main contrib
+deb https://deb.debian.org/debian buster-updates main contrib
+deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free

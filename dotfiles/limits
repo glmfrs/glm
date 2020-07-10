@@ -1,0 +1,7 @@
+### /etc/security/limits.d/99-limits.conf
+user hard nproc 32768
+user soft nproc 32768
+user hard nofile 65535
+user soft nofile 65535
+user hard fsize unlimited
+user soft fsize unlimited

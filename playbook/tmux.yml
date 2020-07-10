@@ -1,0 +1,24 @@
+---
+- name: TMUX
+  copy:
+    dest: "{{ item }}"
+    group: root
+    owner: root
+    mode: 0644
+    content: |
+      ###  ~/.tmux.conf
+      unbind C-b
+      set -g prefix C-a
+      bind C-a send-prefix
+      set -g history-limit 10000
+      set -g default-terminal 'screen-256color'
+      set -g allow-rename off
+      set -g status-style 'bg=black','fg=green','bright'
+      set -g window-status-current-style 'bg=green'
+      bind s set-window-option synchronize-panes
+      #set -g status-bg '#000000'
+      #set -g status-fg '#aaaaaa'
+      #set -g window-status-current-fg '#008000'
+  with_items:
+    - /root/.tmux.conf
+    - /etc/skel/.tmux.conf

@@ -1,0 +1,61 @@
+# MariaDB / MySQL
+
+## Installation
+aptitude install mariadb-server
+yum install mariadb-server
+
+## Connexion
+mysql -u root -p
+	-u <USER>
+	-p Nécessite un mot de passe
+
+## Liste des bases de données
+> show databases;
+
+## Utiliser une base de données existante
+> use <DB>;
+
+## Création d'une base de données
+> create database <DB>;
+
+## Suppression d'une base de données
+> drop database <DB>;
+
+## Importer une base de données
+> SOURCE <DB>.sql;
+
+## Liste des tables
+> show tables;
+
+## Structure d'une table
+> describe <TABLE>;
+
+## Renommer une table
+> alter table <TABLE> rename as <TABLE-NOM>;
+
+## Exporter une base de données complète
+mysqldump -u <USER> -p <DB> > <DB-SOURCE>.sql
+
+## Exporter toutes les bases de données du serveur
+mysqldump -u <USER> -p –all-databases –single-transaction > <DB>.sql
+
+## Importation d'une base de données dans MariaDB / MySQL
+mysql -u <USER> -p <DB> < <DB-SOURCE>.sql
+
+## Lister les utilisateurs
+> select user from mysql.user;
+
+## Création d'un utilisateur
+> create user "<USER>"@"localhost";
+
+## Définition d'un mot de passe
+> set password for "<USER>"@"localhost" = password('<PASSWORD>');
+
+## Suppression d'un utilisateur
+> drop user "<USER>"@"localhost";
+
+## Accorder tous les droits sur une base de données à un utilisateur précis
+> grant all on <DB>.* to "<USER>"@"localhost";
+
+## Supprimer les droits sur une base de données à un utilisateur précis
+> revoke all privileges on <DB>.* from "<USER>"@"localhost";

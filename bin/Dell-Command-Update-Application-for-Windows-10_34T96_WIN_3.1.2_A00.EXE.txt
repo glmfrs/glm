@@ -1,0 +1,18 @@
+https://www.dell.com/support/home/fr-fr/drivers/driversdetails?driverid=34t96
+
+Application Dell Command Update pour Windows 10
+
+Version : Version 3.1.2, A00
+Catégorie : Systems Management
+Date de publication : 27 avr. 2020
+Dernière mise à jour : 09 juil. 2020
+Importance : Recommended
+Formats disponibles : Afficher les informations importantes
+Format de fichier : Update Package for MS Windows 32-Bit
+Nom du fichier : Dell-Command-Update-Application-for-Windows-10_34T96_WIN_3.1.2_A00.EXE
+Type de téléchargement : HTTP
+Taille du fichier : 22.18 MB
+Description du format: Dell Update Packages (DUP) in Microsoft Windows 32bit format have been designed to run on Microsoft Windows 64bit Operating Systems. Dell Update Packages (DUP) in Microsoft Windows 64bit format will only run on Microsoft Windows 64bit Operating Systems. When selecting a device driver update be sure to select the one that is appropriate for your operating system.
+MD5 : 90051a0b3ade630b99f309e139750e80
+SHA1 : 1b14054106ce83bd746dee445821d85f24607240
+SHA-256 : 4964c011a263a82c626e029197248d24c9579e3d39a6ffa905ecf34790b3b6c4

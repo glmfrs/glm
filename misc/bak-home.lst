@@ -1,0 +1,19 @@
+# Liste des répertoires et fichiers exclus de la sauvegarde
+- .android
+- .ansible
+- .cache
+- .cups
+- data/
+- .esd_auth
+- git/
+- .kube/
+- .mono/
+- .multibootusb/
+- .pyrenamer/
+- .quodlibet/
+- .recently-used
+- .scribus/
+- .shutter/
+- .thumbnails/
+- .var/
+- .xsel.log

@@ -1,0 +1,43 @@
+### /etc/ssh/sshd_config
+Port 22
+# Port 2222
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+UsePrivilegeSeparation sandbox
+KeyRegenerationInterval 3600
+SyslogFacility AUTHPRIV
+LogLevel VERBOSE
+MaxAuthTries 5
+LoginGraceTime 60
+StrictModes yes
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+IgnoreRhosts yes
+PermitEmptyPasswords no
+ChallengeResponseAuthentication yes
+X11Forwarding no
+PrintMotd yes
+PermitUserEnvironment no
+PrintLastLog yes
+ClientAliveInterval 600
+ClientAliveCountMax 0
+MaxStartups 5:15:30
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
+UsePAM yes
+UseDNS no
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+AllowAgentForwarding yes
+# Banner /etc/issue.net
+AllowTcpForwarding yes
+PermitTunnel yes
+# ListenAddress IP
+# DenyUsers root test guest admin snort apache nobody
+# AllowUsers USER
+# AllowGroups GROUPE
+# AuthenticationMethods publickey
+PasswordAuthentication yes
+PermitRootLogin without-password

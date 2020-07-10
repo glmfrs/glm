@@ -1,0 +1,29 @@
+---
+- name: Git installation
+  yum:
+    name: git
+    state: latest
+    update_cache: yes
+
+- name: Git user
+  user:
+    name: git
+    home: /opt/git/
+    shell: /usr/bin/git-shell
+    expires: -1
+
+- name: Git clef ssh
+  authorized_key:
+    user: git
+    state: present
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
+
+- name: Git repertoires
+  file:
+    path: /opt/git/test.git
+    state: directory
+    owner: git
+
+- name: Git init
+  command: '/usr/bin/git init --bare /opt/git/test.git'
+  become_user: git

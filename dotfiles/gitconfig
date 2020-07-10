@@ -1,0 +1,26 @@
+### ~/.gitconfig | /.git/config
+[user]
+    name =
+    email =
+#   password =
+#   signingkey =
+# [commit]
+#   gpgsign = true
+[core]
+    editor = vim
+[color]
+    ui = auto
+[alias]
+    logp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    mg = merge --no-ff
+    recup = !sh -c 'git branch --track $1 origin/$1' -
+# [http "https://git.domain.tld/"]
+#   sslVerify = false
+# [http "https://github.com/"]
+#   proxy = "http://User:Password@Proxy:Port"
+# [credential]
+#   helper = cache
+#   helper = cache --timeout 30000
+### Authentification stockée dans .git/config
+# [credential]
+#   helper = store

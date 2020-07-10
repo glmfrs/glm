@@ -1,0 +1,149 @@
+---
+- name: Cockpit-MFA-Reverse installation des paquets
+  yum:
+    name:
+      - epel-release
+      - cockpit
+      - nginx
+      - google-authenticator
+    state: latest
+    update_cache: yes
+
+- name: OpenSSL creation du repertoire
+  file:
+    path: /etc/pki/{{ansible_fqdn}}/
+    state: directory
+
+- name: Cockpit-MFA creation d'un OTP
+  debug:
+    msg: "google-authenticator doit être exécuté pour créer un OTP"
+
+- name: Cockpit-MFA modification PAM
+  lineinfile:
+    path: /etc/pam.d/cockpit
+    line: auth required pam_google_authenticator.so
+    insertafter: EOF
+
+- name: Cockpit accepte le reverse proxy
+  copy:
+    dest: /etc/cockpit/cockpit.conf
+    group: root
+    owner: root
+    mode: 0644
+    content: |
+      ### /etc/cockpit/cockpit.conf
+      [WebService]
+      Origins = https://{{ansible_fqdn}} wss://{{ansible_fqdn}}
+      ProtocolHeader = X-Forwarded-Proto
+      UrlRoot=/cockpit
+
+- name: Nginx Reverse Proxy pour Cockpit
+  copy:
+    dest: /etc/nginx/nginx.conf
+    group: root
+    owner: root
+    mode: 0644
+    content: |
+      ### /etc/nginx/nginx.conf
+      user nginx;
+      worker_processes auto;
+      error_log /var/log/nginx/error.log;
+      pid /run/nginx.pid;
+      include /usr/share/nginx/modules/*.conf;
+      events {
+          worker_connections 1024;
+      }
+      http {
+          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                            '$status $body_bytes_sent "$http_referer" '
+                            '"$http_user_agent" "$http_x_forwarded_for"';
+          access_log  /var/log/nginx/access.log  main;
+          sendfile            on;
+          tcp_nopush          on;
+          tcp_nodelay         on;
+          keepalive_timeout   65;
+          types_hash_max_size 2048;
+          include             /etc/nginx/mime.types;
+          default_type        application/octet-stream;
+          include /etc/nginx/conf.d/*.conf;
+          gzip on;
+          gzip_disable "msie6";
+          gzip_vary on;
+          gzip_proxied any;
+          gzip_comp_level 6;
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+              return 301 https://$host$request_uri;
+          }
+          server {
+              listen 443 ssl;
+              listen [::]:443 ssl;
+              server_name {{ansible_fqdn}};
+              ssl_certificate /etc/pki/{{ansible_fqdn}}/fullchain1.pem;
+              ssl_certificate_key /etc/pki/{{ansible_fqdn}}/privkey1.pem;
+              # ssl_dhparam /etc/pki/{{ansible_fqdn}}/dhparam.pem;
+              ssl_session_timeout 1d;
+              ssl_session_cache shared:MozSSL:10m;
+              ssl_session_tickets off;
+              ssl_protocols TLSv1.2 TLSv1.3;
+              ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+              ssl_prefer_server_ciphers off;
+              add_header Strict-Transport-Security "max-age=63072000" always;
+              ssl_stapling on;
+              ssl_stapling_verify on;
+              resolver 127.0.0.1;
+              location /cockpit/ {
+                  proxy_pass https://127.0.0.1:9090/cockpit/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Forwarded-Proto $scheme;
+                  proxy_http_version 1.1;
+                  proxy_buffering off;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection "upgrade";
+                  gzip off;
+              }
+          }
+      }
+
+# cat /etc/pki/{{ansible_fqdn}}/fullchain1.pem /etc/pki/{{ansible_fqdn}}/privkey1.pem > /etc/cockpit/ws-certs.d/{{ansible_fqdn}}.cert
+# chmod 640 /etc/cockpit/ws-certs.d/{{ansible_fqdn}}.cert
+# /usr/sbin/remotectl certificate --ensure --user=root --group=cockpit-ws --selinux-type=etc_t
+
+- name: Firewalld Cockpit et Nginx
+  firewalld:
+    port: "{{ item }}"
+    state: enabled
+    permanent: yes
+    immediate: yes
+  with_items:
+    - 80/tcp
+    - 443/tcp
+  ignore_errors: yes
+
+# firewall-cmd --permanent --add-service=http --add-service=https && systemctl reload firewalld.service
+
+- name: Nginx autorisation SELinux
+  seport:
+    ports: "{{ item }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  with_items:
+    - 80/tcp
+    - 443/tcp
+    - 9090/tcp
+  ignore_errors: yes
+
+- name: Cockpit-MFA-Reverse services
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+    masked: no
+    daemon_reload: yes
+  with_items:
+    - cockpit.socket
+    - cockpit.service
+    - nginx.service
+  ignore_errors: yes

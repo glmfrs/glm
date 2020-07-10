@@ -1,0 +1,22 @@
+---
+- name: OpenSSL SelfSigned creation du repertoire
+  file:
+    path: /etc/pki/{{ansible_fqdn}}/
+    state: directory
+
+- name: OpenSSL SelfSigned PrivateKey
+  openssl_privatekey:
+    path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+
+- name: OpenSSL SelfSigned CSR
+  openssl_csr:
+    path: /etc/pki/{{ansible_fqdn}}/certificat.csr
+    privatekey_path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+    common_name: "{{ansible_hostname}}"
+
+- name: OpenSSL SelfSigned Certificat
+  openssl_certificate:
+    path: /etc/pki/{{ansible_fqdn}}/cert1.pem
+    privatekey_path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+    csr_path: /etc/pki/{{ansible_fqdn}}/certificat.csr
+    provider: selfsigned

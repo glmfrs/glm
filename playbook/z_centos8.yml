@@ -1,0 +1,325 @@
+---
+- hosts: all
+  tasks:
+
+# yum install -y python3 && alternatives --set python /usr/bin/python3
+
+  - name: YUM mise à jour de tous les paquets
+    yum:
+      name: '*'
+      state: latest
+      update_cache: yes
+
+  - name: YUM installation des paquets
+    yum:
+      name:
+        - bash-completion
+        - bind-utils
+        - bzip2
+        - ca-certificates
+        - cockpit
+        - cracklib
+        - curl
+        - elrepo-release
+        - epel-release
+        - git
+        - haveged
+        - htop
+        - logrotate
+        - nano
+        - net-snmp-utils
+        - nmap-ncat
+        - rsync
+        - sudo
+        - telnet
+        - tmux
+        - unzip
+        - vim-enhanced
+        - wget
+        - xz
+      state: latest
+      update_cache: yes
+    ignore_errors: yes
+
+  - name: SSH clefs autorisees pour root
+    authorized_key:
+      user: root
+      state: present
+      key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
+
+  - name: DNS configuration des resolveurs
+    copy:
+      dest: /etc/resolv.conf
+      owner: root
+      group: root
+      mode: 0644
+      content: |
+        ### /etc/resolv.conf
+        nameserver 80.67.169.12
+        nameserver 9.9.9.9
+        nameserver ns10.fr.dns.opennic.glue
+        nameserver 2001:910:800::12
+        nameserver 2620:fe::fe
+
+  - name: Locale GB installation de paquets
+    yum:
+      name:
+        - glibc-common
+        - glibc-langpack-en
+      state: latest
+    ignore_errors: yes
+
+  - name: Locale GB generation des locales
+    locale_gen:
+      name: en_GB.UTF-8
+      state: present
+    ignore_errors: yes
+
+  - name: Locale GB edition du fichier de configuration
+    copy:
+      dest: /etc/environment
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        ### /etc/environment
+        LANG=en_GB.UTF-8
+        LC_CTYPE=en_GB.UTF-8
+        LC_NUMERIC="en_GB.UTF-8"
+        LC_TIME="en_GB.UTF-8"
+        LC_COLLATE="en_GB.UTF-8"
+        LC_MONETARY="en_GB.UTF-8"
+        LC_MESSAGES="en_GB.UTF-8"
+        LC_PAPER="en_GB.UTF-8"
+        LC_NAME="en_GB.UTF-8"
+        LC_ADDRESS="en_GB.UTF-8"
+        LC_TELEPHONE="en_GB.UTF-8"
+        LC_MEASUREMENT="en_GB.UTF-8"
+        LC_IDENTIFICATION="en_GB.UTF-8"
+        LC_ALL=en_GB.UTF-8
+
+  - name: Locale GB edition du fichier de configuration
+    copy:
+      dest: /etc/locale.conf
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        ### /etc/locale.conf
+        LANG=en_GB.UTF-8
+
+  - name: Locale GB configuration systemd
+    command: '/usr/bin/localectl set-locale LANG=en_GB.UTF-8'
+    ignore_errors: yes
+
+  - name: BASHRC
+    copy:
+      dest: "{{ item }}"
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        ###  ~/.bashrc
+        if [ -f /etc/bashrc ]; then
+            . /etc/bashrc
+        fi
+        if [ -f /etc/bash_completion ]; then
+            . /etc/bash_completion
+        fi
+        # LC_ALL=C
+        # PATH=/usr/sbin:/usr/bin:/sbin:/bin
+        # export PS1="[\u@\h \w]\\$ "
+        # export PS1="\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+        # export PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+        alias cp="cp --interactive"
+        alias mv="mv --interactive"
+        alias rm="rm --interactive"
+        alias grep="grep --color=auto"
+        alias less="less --quiet"
+        alias df="df -h"
+        alias dfa="df -haT --total"
+        alias du="du --human-readable"
+        alias ll="ls -lh --color=auto"
+        alias lla="ls -lha --color=auto"
+        alias lls="ls -lhS --color=auto"
+        alias llt="ls -lht --color=auto"
+        alias trees="tree -Csh"
+        alias grep="grep --color=auto"
+        alias ramclean="sysctl -w vm.drop_caches=3"
+        alias ipublic="curl https://api.ipify.org ; echo -e ; curl https://api6.ipify.org"
+        alias iperf-free="iperf3 -c ping.online.net -p 5208"
+        alias heure="date +'%F-%T'"
+        alias meteo="curl wttr.in/Paris"
+        alias syspatch="yum repolist && yum check-update && yum update -y"
+        export HISTSIZE=99999
+        export HISTFILESIZE=999999
+        export HISTTIMEFORMAT="%F_%T "
+        export VISUAL=vim
+        export EDITOR="$VISUAL"
+        export PAGER="less"
+        export LESS_TERMCAP_mb=$'\e[1;31m'
+        export LESS_TERMCAP_md=$'\e[1;33m'
+        export LESS_TERMCAP_so=$'\e[01;44;37m'
+        export LESS_TERMCAP_us=$'\e[01;37m'
+        export LESS_TERMCAP_me=$'\e[0m'
+        export LESS_TERMCAP_se=$'\e[0m'
+        export LESS_TERMCAP_ue=$'\e[0m'
+        export GROFF_NO_SGR=1
+    with_items:
+      - /root/.bashrc
+      - /etc/skel/.bashrc
+
+  - name: VIMRC
+    copy:
+      dest: /etc/vimrc
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        """ /etc/vimrc
+        syntax on
+        set ruler
+        set paste
+        set number
+        set expandtab
+        set nocompatible
+        set shiftwidth=4
+        set softtabstop=4
+        set background=dark
+
+  - name: TMUX
+    copy:
+      dest: "{{ item }}"
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        ###  ~/.tmux.conf
+        unbind C-b
+        set -g prefix C-a
+        bind C-a send-prefix
+        set -g history-limit 99999
+        set -g default-terminal 'screen-256color'
+        set -g allow-rename off
+        set -g status-style 'bg=black','fg=green','bright'
+        set -g window-status-current-style 'bg=green'
+        bind s set-window-option synchronize-panes
+    with_items:
+      - /root/.tmux.conf
+      - /etc/skel/.tmux.conf
+
+  - name: GitConfig
+    copy:
+      dest: "{{ item }}"
+      group: root
+      owner: root
+      mode: 0644
+      content: |
+        ### /root/.gitconfig
+        [user]
+            name =
+            email =
+        #   signingkey =
+        #[commit]
+        #  gpgsign = true
+        [core]
+            editor = vim
+        [color]
+            ui = auto
+        # [http "https://git.domain.tld/"]
+        #   sslVerify = false
+        # [http "https://github.com/"]
+        #   proxy = "http://User:Password@Proxy:Port"
+        # [credential]
+        #   helper = cache --timeout 30000
+    with_items:
+      - /root/.gitconfig
+      - /etc/skel/.gitconfig
+
+  - name: COCKPIT demarrage automatique du service
+    systemd:
+      name: cockpit.socket
+      state: started
+      enabled: yes
+      daemon_reload: yes
+
+  - name: GRUB reduction de l'attente
+    lineinfile:
+      path: /etc/default/grub
+      regexp: '^GRUB_TIMEOUT'
+      line: GRUB_TIMEOUT=1
+
+  - name: GRUB modification du nom de l'interface reseau
+    lineinfile:
+      path: /etc/default/grub
+      regexp: '^GRUB_CMDLINE_LINUX="([0-9a-zA-Z.=_\/ ]*?)( vga=[0-9]*?)?( net\.ifnames=0)?( biosdevname=0)?"$'
+      line: 'GRUB_CMDLINE_LINUX="\1 vga=773 net.ifnames=0 biosdevname=0"'
+      backrefs: yes
+
+  - name: GRUB mise a jour du BIOS
+    command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+
+  - name: GRUB mise a jour de l'EFI
+    command: /usr/sbin/grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+
+  - name: ETHx configuration
+    copy:
+      dest: /etc/sysconfig/network-scripts/ifcfg-ethx
+      owner: root
+      group: root
+      mode: 0644
+      content: |
+        ### /etc/sysconfig/network-scripts/ifcfg-ethx
+        NAME=ethx
+        DEVICE=ethx
+        ONBOOT=yes
+        DEFROUTE=yes
+        TYPE=Ethernet
+        BOOTPROTO=static
+        IPV4_FAILURE_FATAL=no
+        IPV6INIT=no
+        IPADDR={{ ansible_default_ipv4.address }}
+        NETMASK={{ ansible_default_ipv4.netmask }}
+        GATEWAY={{ ansible_default_ipv4.gateway }}
+        #BOOTPROTO=dhcp
+# - name: ETH0 suppression des autres cartes reseau
+#   shell: |
+#     shopt -s extglob
+#     for i in $(ls /etc/sysconfig/network-scripts/ifcfg-!(eth*|lo))
+#     do echo $i
+#     j=$(echo $i | sed s/ifcfg-//)
+#     mv -f $i $j
+#     done
+# - name: ETH0 redemarrage du reseau
+#   systemd:
+#     name: network
+#     state: started
+#     enabled: yes
+#     masked: no
+#     daemon_reload: yes
+#   ignore_errors: yes
+
+  - name: OpenSSL SelfSigned creation du repertoire
+    file:
+      path: /etc/pki/{{ansible_fqdn}}/
+      state: directory
+
+  - name: OpenSSL SelfSigned PrivateKey
+    openssl_privatekey:
+      path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+
+  - name: OpenSSL SelfSigned CSR
+    openssl_csr:
+      path: /etc/pki/{{ansible_fqdn}}/certificat.csr
+      privatekey_path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+      common_name: "{{ansible_hostname}}"
+
+  - name: OpenSSL SelfSigned Certificat
+    openssl_certificate:
+      path: /etc/pki/{{ansible_fqdn}}/cert1.pem
+      privatekey_path: /etc/pki/{{ansible_fqdn}}/privkey1.pem
+      csr_path: /etc/pki/{{ansible_fqdn}}/certificat.csr
+      provider: selfsigned
+
+  - name: Redemarrage
+    reboot:

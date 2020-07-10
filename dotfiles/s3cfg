@@ -1,0 +1,8 @@
+### ~/.s3cfg
+[default]
+bucket_location =
+host_base =
+host_bucket =
+use_https = True
+access_key =
+secret_key =

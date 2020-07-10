@@ -1,0 +1,38 @@
+---
+- name: COCKPIT installation des paquets
+  yum:
+    name: cockpit
+    state: latest
+    update_cache: yes
+  ignore_errors: yes
+
+# - name: COCKPIT indication du certificat
+#   copy:
+#     src: cockpit.cert
+#     dest: /etc/cockpit/ws-certs.d/cockpit.cert
+#     owner: root
+#     group: cockpit-ws
+#     mode: 0640
+
+# - name: COCKPIT vérification du certificat
+#   debug:
+#     msg: "Vérification de la prise en charge du certificat : $ /usr/sbin/remotectl certificate"
+
+# - name: COCKPIT prise en compte du certificat
+#   command: /usr/sbin/remotectl certificate --ensure --user=root --group=cockpit-ws --selinux-type=etc_t
+
+# - name: COCKPIT demarrage du service
+#   systemd:
+#     name:
+#       - cockpit.service
+#       - cockpit.socket
+#     state: started
+#     enabled: yes
+#     daemon_reload: yes
+
+- name: COCKPIT demarrage du service
+  systemd:
+    name: cockpit.socket
+    state: started
+    enabled: yes
+    daemon_reload: yes

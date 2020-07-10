@@ -1,0 +1,50 @@
+---
+#- name: YUM suppression de l'option FastestMirror
+#  lineinfile:
+#    path: /etc/yum/pluginconf.d/fastestmirror.conf
+#    regexp: '^enabled='
+#    line: enabled=0
+#  ignore_errors: yes
+
+- name: YUM mise à jour de tous les paquets
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: YUM installation des paquets
+  yum:
+    name:
+      - bash-completion
+      - bind-utils
+      - bzip2
+      - ca-certificates
+      - cockpit
+      - cracklib
+      - curl
+      - epel-release
+      - git
+      - haveged
+      - htop
+      - logrotate
+      - nano
+      - net-snmp-utils
+      - nmap-ncat
+      - rsync
+      - sudo
+      - telnet
+      - tmux
+      - unzip
+      - vim-enhanced
+      - wget
+      - xz
+    state: latest
+    update_cache: yes
+  ignore_errors: yes
+
+- name: YUM installation du depot EPEL
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+  ignore_errors: yes

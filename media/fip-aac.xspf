@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<playlist xmlns="http://xspf.org/ns/0/" xmlns:vlc="http://www.videolan.org/vlc/playlist/ns/0/" version="1">
+    <title>FIP</title>
+    <trackList>
+        <track>
+            <location>http://icecast.radiofrance.fr/fip-hifi.aac</location>
+            <title>FIP HiFi</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>0</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fiprock-hifi.aac</location>
+            <title>FIP Rock</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>1</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipjazz-hifi.aac</location>
+            <title>FIP Jazz</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>2</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipgroove-hifi.aac</location>
+            <title>FIP Groove</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>3</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipworld-hifi.aac</location>
+            <title>FIP Monde</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>4</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipnouveautes-hifi.aac</location>
+            <title>FIP Nouveautés</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>5</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipreggae-hifi.aac</location>
+            <title>FIP Reggae</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>6</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipmetal-hifi.aac</location>
+            <title>FIP Metal</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>7</vlc:id>
+            </extension>
+        </track>
+        <track>
+            <location>http://icecast.radiofrance.fr/fipelectro-hifi.aac</location>
+            <title>FIP Electro</title>
+            <extension application="http://www.videolan.org/vlc/playlist/0">
+                <vlc:id>8</vlc:id>
+            </extension>
+        </track>
+    </trackList>
+    <extension application="http://www.videolan.org/vlc/playlist/0">
+        <vlc:item tid="0"/>
+        <vlc:item tid="1"/>
+        <vlc:item tid="2"/>
+        <vlc:item tid="3"/>
+        <vlc:item tid="4"/>
+        <vlc:item tid="5"/>
+        <vlc:item tid="6"/>
+        <vlc:item tid="7"/>
+        <vlc:item tid="8"/>
+    </extension>
+</playlist>

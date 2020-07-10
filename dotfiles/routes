@@ -1,0 +1,4 @@
+### /etc/sysconfig/network-scripts/route-eth0
+10.0.0.0/8 via 12.34.56.78
+172.16.0.0/16 via 12.34.56.78
+192.168.1.0/24 via 12.34.56.78

@@ -1,0 +1,19 @@
+# ssh-keygen -G /etc/ssh/moduli.all -b 8192 && ssh-keygen -T /etc/ssh/moduli.safe -f /etc/ssh/moduli.all
+# mv /etc/ssh/moduli.safe /etc/ssh/moduli && rm /etc/ssh/moduli.all
+# ssh-keygen -t ed25519 -o -a 100 -f /.../PrivateKey -C "User@Domain.Tld"
+
+#-------------------------------------------------------------------#
+
+Host abc*
+	Hostname host.domain.tld
+	IdentityFile /home/user/.ssh/id_rsa
+	IdentitiesOnly yes
+Host abcssh
+	User user
+	Port 443
+Host abcsocks
+	User user
+	Port 443
+	DynamicForward 8443
+
+#-------------------------------------------------------------------#

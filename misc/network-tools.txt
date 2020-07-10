@@ -1,0 +1,17 @@
+Liste des outils de monitoring du réseau.
+
+https://www.debian.org/doc/manuals/debian-reference/ch05.fr.html#_the_low_level_network_configuration
+http://www.debianhelp.co.uk/networktools2.htm
+
+iftop           afficher l’utilisation de la bande passante d’une interface réseau
+iperf           outil de mesure de la bande passante du protocole Internet
+apt-spy         écrire un fichier « /etc/apt/sources.list » en fonction de tests de bande passante
+ifstat          InterFace STATistics Monitoring (surveillance des statistiques de l’interface)
+bmon            surveillance portable de la bande passante et estimation du débit
+ethstatus       script qui mesure rapidement le débit d"une interface réseau
+bing            testeur de bande passante empirique et stochastique
+bwm-ng          moniteur de bande passante simple en mode console
+ethstats        moniteur de statistiques Ethernet en mode console
+ipfm            outil d’analyse de bande passante
+knocker         scan ports TCP
+iptraf          moniteur IP basé sur ncurses

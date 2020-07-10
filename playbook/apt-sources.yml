@@ -1,0 +1,13 @@
+---
+- name: Debian sources.list
+  copy:
+    dest: /etc/apt/sources.list
+    group: root
+    owner: root
+    mode: 0644
+    content: |
+      deb https://deb.debian.org/debian buster main contrib non-free
+      deb https://deb.debian.org/debian buster-updates main contrib non-free
+      deb https://deb.debian.org/debian-security/ buster/updates main contrib non-free
+      # deb http://www.deb-multimedia.org buster main non-free
+      # deb http://dl.google.com/linux/chrome/deb/ stable main

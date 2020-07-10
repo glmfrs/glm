@@ -1,0 +1,19 @@
+### /etc/default/grub
+# CentOS
+GRUB_TIMEOUT=1
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX=""rd.lvm.lv=vg_root/lv_root rd.lvm.lv=vg_root/lv_swap vga=773 net.ifnames=0 biosdevname=0"
+# GRUB_CMDLINE_LINUX=""rd.lvm.lv=vg_root/lv_root rd.lvm.lv=vg_root/lv_swap vga=773 net.ifnames=0 biosdevname=0 transparent_hugepage=never"
+GRUB_DISABLE_RECOVERY="true"
+# /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+#--------------------------------------------------------------------
+# Debian
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=1
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+GRUB_CMDLINE_LINUX=""
+# /usr/sbin/update-grub

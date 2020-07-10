@@ -1,0 +1,33 @@
+### visudo | /etc/sudoers
+Defaults    !visiblepw
+Defaults    !requiretty
+Defaults    always_set_home
+Defaults    match_group_by_gid
+Defaults    env_reset
+Defaults    env_keep =  "COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS"
+Defaults    env_keep += "MAIL PS1 PS2 QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE"
+Defaults    env_keep += "LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES"
+Defaults    env_keep += "LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE"
+Defaults    env_keep += "LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY"
+Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin
+root        ALL=(ALL) ALL
+%wheel      ALL=(ALL) ALL
+Cmnd_Alias  ARCH = /bin/tar, /bin/gzip, /bin/gunzip, /usr/bin/bzip2, /usr/bin/xz
+Cmnd_Alias  CRYPT = /sbin/losetup, /sbin/cryptsetup
+Cmnd_Alias  DEVICE = /sbin/ifup, /sbin/ifdown
+Cmnd_Alias  DIR = /bin/mkdir, /bin/rmdir
+Cmnd_Alias  DISK = /bin/mount, /bin/umount
+Cmnd_Alias  EDIT = /bin/vi, /bin/vim, /usr/bin/nano
+Cmnd_Alias  FILE = /bin/cp, /bin/echo, /bin/ln, /bin/mv, /bin/rm, /usr/bin/touch, /usr/bin/rename
+Cmnd_Alias  FORMAT = /sbin/mkfs.btrfs, /sbin/mkfs.ext2, /sbin/mkfs.ext3, /sbin/mkfs.ext4, /sbin/mkfs.msdos, /sbin/mkfs.vfat, /sbin/mkfs.xfs
+Cmnd_Alias  NETWORK = /sbin/route, /usr/sbin/ip, /sbin/iptables, /usr/bin/nmap, /usr/sbin/hping3
+Cmnd_Alias  PERM = /bin/chattr, /bin/chgrp, /bin/chmod, /bin/chown
+Cmnd_Alias  PROCESS = /usr/bin/ps, /bin/kill, /usr/bin/killall, /sbin/shutdown, /sbin/halt, /usr/sbin/reboot
+Cmnd_Alias  SELINUX = /usr/sbin/semanage, /usr/bin/chcon, /sbin/restorecon, /usr/sbin/setsebool
+Cmnd_Alias  SERVERS = /etc/init.d/network, /etc/init.d/cups, /etc/init.d/nfs, /etc/init.d/httpd, /etc/init.d/vsftpd
+Cmnd_Alias  SERVICE = /usr/bin/systemctl, /sbin/chkconfig, /sbin/service, /usr/sbin/updatedb
+Cmnd_Alias  SHELLS = /usr/bin/sh, /usr/bin/csh, /usr/bin/tcsh, /usr/bin/bash, /usr/bin/ksh, /usr/bin/zsh
+Cmnd_Alias  SOFTWARE = /usr/bin/rpm, /usr/bin/yum, /usr/bin/apt
+Cmnd_Alias  SU = /usr/bin/su
+Cmnd_Alias  VIEW = /bin/cat, /usr/bin/du, /bin/ls, /bin/tree, /bin/top, /bin/tails
+user        ALL = NOPASSWD: ARCH, CRYPT, DEVICE, DIR, DISK, EDIT, FILE, FORMAT, NETWORK, PERM, PROCESS, SELINUX, SERVERS, SERVICE, SHELLS, SOFTWARE, SU, VIEW

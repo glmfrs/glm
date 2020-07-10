@@ -1,0 +1,19 @@
+---
+- name: GRUB reduction de l'attente
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_TIMEOUT'
+    line: GRUB_TIMEOUT=1
+
+- name: GRUB modification du nom de l'interface reseau
+  lineinfile:
+    path: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="([0-9a-zA-Z.=_\/ ]*?)( vga=[0-9]*?)?( net\.ifnames=0)?( biosdevname=0)?"$'
+    line: 'GRUB_CMDLINE_LINUX="\1 vga=773 net.ifnames=0 biosdevname=0"'
+    backrefs: yes
+
+- name: GRUB mise a jour du BIOS
+  command: /usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg
+
+- name: GRUB mise a jour de l'EFI
+  command: /usr/sbin/grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg

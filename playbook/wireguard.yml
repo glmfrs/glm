@@ -1,0 +1,71 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+
+  - name: WireGuard installation Debian
+    apt:
+      name: wireguard
+      state: latest
+      update_cache: yes
+#   when: ansible_facts['os_family'] == "Debian"
+
+# - name: WireGuard installation CentOS 8
+#   yum:
+#     name:
+#       - elrepo-release
+#       - epel-release
+#       - kmod-wireguard
+#       - wireguard-tools
+#     state: latest
+#     update_cache: yes
+#   when: ansible_facts['os_family'] == "CentOS"
+
+  - name: WireGuard creation du repertoire de configuration
+    file:
+      path: /etc/wireguard/
+      state: directory
+      mode: 0600
+
+  - name: WireGuard creation des clefs
+    command: sh -c 'umask 077 /etc/wireguard/ ; wg genkey | tee /etc/wireguard/wg0.key | wg pubkey > /etc/wireguard/wg0.pub'
+
+  - name: WireGuard affichage de la clef privee
+    command: cat /etc/wireguard/wg0.key
+    register: wg_key
+
+  - name: WireGuard affichage de la clef publique
+    command: cat /etc/wireguard/wg0.pub
+    register: wg_pub
+
+  - name: WireGuard configuration du serveur
+    copy:
+      dest: /etc/wireguard/wg0.conf
+      group: root
+      owner: root
+      mode: 0600
+      content: |
+        ### /etc/wireguard/wg0.conf
+        [Interface]
+        Address     = 172.17.2.1/24
+        ListenPort  = 51820
+        PrivateKey  = {{wg_key.stdout}}
+        # PostUp      = firewall-cmd --add-port=51820/udp && firewall-cmd --add-masquerade
+        # PostDown    = firewall-cmd --remove-port=51820/udp && firewall-cmd --remove-masquerade
+        SaveConfig  = true
+        [Peer]
+        PublicKey   = {{wg_pub.stdout}}
+        AllowedIPs  = 172.17.2.100/32
+        # [Peer]
+        # PublicKey   =
+        # AllowedIPs  = 172.17.2.101/32
+        # [Peer]
+        # PublicKey   =
+        # AllowedIPs  = 172.17.2.102/32
+
+  - name: WireGuard demarrage automaatique du service
+    systemd:
+      name: wg-quick@wg0.service
+      state: started
+      enabled: yes
+      daemon_reload: yes

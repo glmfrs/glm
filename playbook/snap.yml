@@ -1,0 +1,26 @@
+---
+- name: Snap pre-requis
+  apt:
+    name: snapd
+    state: latest
+    update_cache: yes
+  ignore_errors: yes
+
+- name: Snap installations
+  snap:
+    name:
+      - firefox
+      - spotify
+      - vlc
+      - keepassxc
+      - tor
+
+- name: Snap VS Code
+  snap:
+    name: code
+    classic: yes
+
+- name: Snap Chromium Beta
+  snap:
+    name: chromium
+    channel: latest/beta
