@@ -1,12 +1,12 @@
 ---
-- name: vimrc pour enterprise linux
+- name: vimrc pour debian
   copy:
-    dest: /etc/vimrc
+    dest: /etc/vim/vimrc
     group: root
     owner: root
     mode: 0644
     content: |
-      """ /etc/vimrc
+      """ /etc/vim/vimrc
       syntax on
       set ruler
       set paste

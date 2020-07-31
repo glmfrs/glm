@@ -1,23 +1,23 @@
 ---
-- name: BASHRC
+- name: bashrc
   copy:
     dest: "{{ item }}"
     group: root
     owner: root
     mode: 0644
     content: |
-      ### /root/.bashrc
+      ### ~/.bashrc
       if [ -f /etc/bashrc ]; then
           . /etc/bashrc
       fi
       if [ -f /etc/bash_completion ]; then
           . /etc/bash_completion
       fi
-      #LC_ALL=C
-      #PATH=/usr/sbin:/usr/bin:/sbin:/bin
-      #export PS1="[\u@\h \w]\\$ "
-      #export PS1="\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
-      #export PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+      # LC_ALL=C
+      # PATH=/usr/sbin:/usr/bin:/sbin:/bin
+      # export PS1="[\u@\h \w]\\$ "
+      # export PS1="\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+      # export PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
       alias cp="cp --interactive"
       alias mv="mv --interactive"
       alias rm="rm --interactive"
@@ -33,16 +33,12 @@
       alias trees="tree -Csh"
       alias grep="grep --color=auto"
       alias ramclean="sysctl -w vm.drop_caches=3"
-      alias ipublic="curl ipinfo.io"
-      alias iperf-ovh="iperf -c iperf.ovh.net -i 3 -t 10"
-      alias heure="date +'%F %T'"
-      alias meteo="curl wttr.in/Paris"
-      alias sysupdate="apt update && apt dist-upgrade"
-      alias sysclean="apt autoclean && apt autoremove"
+      alias ipublic="curl https://api.ipify.org ; echo -e ; curl https://api6.ipify.org"
       export HISTSIZE=99999
       export HISTFILESIZE=99999
-      export HISTTIMEFORMAT="%F %T"
+      export HISTTIMEFORMAT="%F %T "
       export PAGER="less"
+      export EDITOR="vim"
       export LESS_TERMCAP_mb=$'\e[1;31m'
       export LESS_TERMCAP_md=$'\e[1;33m'
       export LESS_TERMCAP_so=$'\e[01;44;37m'

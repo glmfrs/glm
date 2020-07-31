@@ -1,5 +1,5 @@
 ---
-- name: Locale GB installation de paquets
+- name: locale GB installation de paquets
   yum:
     name:
       - glibc-common
@@ -7,13 +7,13 @@
     state: latest
   ignore_errors: yes
 
-- name: Locale GB generation des locales
+- name: locale GB generation des locales
   locale_gen:
     name: en_GB.UTF-8
     state: present
   ignore_errors: yes
 
-- name: Locale GB edition du fichier de configuration
+- name: locale GB edition du fichier de configuration
   copy:
     dest: /etc/environment
     group: root
@@ -36,7 +36,7 @@
       LC_IDENTIFICATION="en_GB.UTF-8"
       LC_ALL=en_GB.UTF-8
 
-- name: Locale GB edition du fichier de configuration
+- name: locale GB edition du fichier de configuration
   copy:
     dest: /etc/locale.conf
     group: root
@@ -46,12 +46,12 @@
       ### /etc/locale.conf
       LANG=en_GB.UTF-8
 
-- name: Locale GB configuration systemd
+- name: locale GB configuration systemd
   command: '/usr/bin/localectl set-locale LANG=en_GB.UTF-8'
   ignore_errors: yes
 
 # Fonctionne mais peu recommandé :
-# - name: Locale GB edition manuelle script lang.sh
+# - name: locale GB edition manuelle script lang.sh
 #   blockinfile:
 #     path: /etc/profile.d/lang.sh
 #     insertafter: EOF
@@ -60,6 +60,6 @@
 #       export LANGUAGE=en_GB.UTF-8
 #       export LC_COLLATE=C
 #       export LC_CTYPE=en_GB.UTF-8
-# - name: Locale GB edition manuelle script lang.sh
+# - name: locale GB edition manuelle script lang.sh
 #   command: 'source /etc/profile.d/lang.sh'
 #   ignore_errors: yes

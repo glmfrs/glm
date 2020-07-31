@@ -1,5 +1,5 @@
 ---
-- name: Cockpit-MFA-Reverse installation des paquets
+- name: cockpit-mfa-reverse installation des paquets
   yum:
     name:
       - epel-release
@@ -9,22 +9,22 @@
     state: latest
     update_cache: yes
 
-- name: OpenSSL creation du repertoire
+- name: openssl creation du repertoire
   file:
     path: /etc/pki/{{ansible_fqdn}}/
     state: directory
 
-- name: Cockpit-MFA creation d'un OTP
+- name: cockpit-mfa creation d'un otp
   debug:
-    msg: "google-authenticator doit être exécuté pour créer un OTP"
+    msg: "google-authenticator doit être exécuté pour créer un otp"
 
-- name: Cockpit-MFA modification PAM
+- name: cockpit-mfa modification pam
   lineinfile:
     path: /etc/pam.d/cockpit
     line: auth required pam_google_authenticator.so
     insertafter: EOF
 
-- name: Cockpit accepte le reverse proxy
+- name: cockpit accepte le reverse proxy
   copy:
     dest: /etc/cockpit/cockpit.conf
     group: root
@@ -37,7 +37,7 @@
       ProtocolHeader = X-Forwarded-Proto
       UrlRoot=/cockpit
 
-- name: Nginx Reverse Proxy pour Cockpit
+- name: nginx reverse proxy pour cockpit
   copy:
     dest: /etc/nginx/nginx.conf
     group: root
@@ -110,7 +110,7 @@
 # chmod 640 /etc/cockpit/ws-certs.d/{{ansible_fqdn}}.cert
 # /usr/sbin/remotectl certificate --ensure --user=root --group=cockpit-ws --selinux-type=etc_t
 
-- name: Firewalld Cockpit et Nginx
+- name: firewalld cockpit et nginx
   firewalld:
     port: "{{ item }}"
     state: enabled
@@ -123,7 +123,7 @@
 
 # firewall-cmd --permanent --add-service=http --add-service=https && systemctl reload firewalld.service
 
-- name: Nginx autorisation SELinux
+- name: nginx autorisation selinux
   seport:
     ports: "{{ item }}"
     proto: tcp
@@ -135,7 +135,7 @@
     - 9090/tcp
   ignore_errors: yes
 
-- name: Cockpit-MFA-Reverse services
+- name: cockpit-mfa-reverse services
   systemd:
     name: "{{ item }}"
     state: started

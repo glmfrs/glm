@@ -1,5 +1,8 @@
 ---
 - hosts: all
+  remote_user: root
+  vars:
+    locale: en_GB.UTF-8
   tasks:
 
 # update-alternatives --install /usr/bin/python python /usr/bin/python3 10 && apt install -y aptitude
@@ -67,7 +70,7 @@
   
   - name: Locale GB generation des locales
     locale_gen:
-      name: en_GB.UTF-8
+      name: "{{ locale }}"
       state: present
     ignore_errors: yes
   
@@ -79,7 +82,7 @@
       mode: 0644
       content: |
         ### /etc/locale.gen
-        en_GB.UTF-8 UTF-8
+        "{{ locale }}" UTF-8
 
   - name: Locale en_GB
     command: /usr/sbin/locale-gen
@@ -93,20 +96,20 @@
       content: |
         ### /etc/default/locale
         LC_ALL=C
-        # LC_ALL=en_GB.UTF-8
-        LANGUAGE=en_GB.UTF-8
-        LC_CTYPE="en_GB.UTF-8"
-        LC_NUMERIC="en_GB.UTF-8"
-        LC_TIME="en_GB.UTF-8"
-        LC_COLLATE="en_GB.UTF-8"
-        LC_MONETARY="en_GB.UTF-8"
-        LC_MESSAGES="en_GB.UTF-8"
-        LC_PAPER="en_GB.UTF-8"
-        LC_NAME="en_GB.UTF-8"
-        LC_ADDRESS="en_GB.UTF-8"
-        LC_TELEPHONE="en_GB.UTF-8"
-        LC_MEASUREMENT="en_GB.UTF-8"
-        LC_IDENTIFICATION="en_GB.UTF-8"
+        # LC_ALL="{{ locale }}"
+        LANGUAGE="{{ locale }}"
+        LC_CTYPE="{{ locale }}"
+        LC_NUMERIC="{{ locale }}"
+        LC_TIME="{{ locale }}"
+        LC_COLLATE="{{ locale }}"
+        LC_MONETARY="{{ locale }}"
+        LC_MESSAGES="{{ locale }}"
+        LC_PAPER="{{ locale }}"
+        LC_NAME="{{ locale }}"
+        LC_ADDRESS="{{ locale }}"
+        LC_TELEPHONE="{{ locale }}"
+        LC_MEASUREMENT="{{ locale }}"
+        LC_IDENTIFICATION="{{ locale }}"
 
   - name: Locale en_GB
     command: /usr/sbin/update-locale
@@ -197,15 +200,21 @@
         unbind C-b
         set -g prefix C-a
         bind C-a send-prefix
-        set -g history-limit 10000
+        set -g history-limit 1000000
         set -g default-terminal 'screen-256color'
         set -g allow-rename off
-        set -g status-style 'bg=black','fg=green','bright'
-        set -g window-status-current-style 'bg=green'
+        set -g base-index 1
+        set -g status-position top
+        set -g status-fg colour250
+        set -g status-bg colour235
+        set -g status-attr dim
+        set -g pane-active-border-fg colour8
+        set -g pane-active-border-bg default
+        set -g mouse on
+        set -g status-right '#H | %F | %T '
+        set-window-option -g window-status-current-fg colour15
+        set-window-option -g window-status-current-bg colour0
         bind s set-window-option synchronize-panes
-        #set -g status-bg '#000000'
-        #set -g status-fg '#aaaaaa'
-        #set -g window-status-current-fg '#008000'
     with_items:
       - /root/.tmux.conf
       - /etc/skel/.tmux.conf

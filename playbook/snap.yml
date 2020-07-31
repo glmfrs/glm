@@ -1,12 +1,12 @@
 ---
-- name: Snap pre-requis
+- name: snap pre-requis
   apt:
     name: snapd
     state: latest
     update_cache: yes
   ignore_errors: yes
 
-- name: Snap installations
+- name: snap installations
   snap:
     name:
       - firefox
@@ -15,12 +15,12 @@
       - keepassxc
       - tor
 
-- name: Snap VS Code
+- name: snap vscode
   snap:
     name: code
     classic: yes
 
-- name: Snap Chromium Beta
+- name: snap chromium-beta
   snap:
     name: chromium
     channel: latest/beta

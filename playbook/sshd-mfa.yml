@@ -1,0 +1,44 @@
+---
+- name: mfa installation du depot epel
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+
+- name: mfa installation du paquet
+  yum:
+    name:
+      - google-authenticator
+      - qrencode
+    state: latest
+    update_cache: yes
+
+- name: mfa creation d'un otp
+  debug:
+    msg: "google-authenticator doit être exécuter pour créer un OTP"
+
+- name: mfa modification pam
+  lineinfile:
+    path: /etc/pam.d/sshd
+    line: auth required pam_google_authenticator.so
+    insertafter: EOF
+
+# - name: mfa modification pam
+#   lineinfile:
+#     path: /etc/pam.d/sshd
+#     regexp: '^auth       substack     password-auth'
+#     line: '# auth       substack     password-auth'
+
+- name: mfa modification sshd ChallengeResponseAuthentication
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^ChallengeResponseAuthentication'
+    line: ChallengeResponseAuthentication yes
+
+- name: mfa sshd redemarrage
+  systemd:
+    name: sshd
+    state: restarted
+    enabled: yes
+    masked: no
+    daemon_reload: yes

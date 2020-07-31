@@ -1,15 +1,16 @@
 ---
-# - name: APT mise à jour de tous les paquets
-#   apt:
-#     name: '*'
-#     state: latest
-#     update_cache: yes
-- name: APT DistUpgrade
+- name: apt mise à jour de tous les paquets
+  apt:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: apt distupgrade
   apt:
     upgrade: dist
     update_cache: yes
 
-- name: APT installation des paquets
+- name: apt installation des paquets
   apt:
     name:
       - bash-completion

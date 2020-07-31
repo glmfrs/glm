@@ -1,5 +1,8 @@
 ---
 - hosts: all
+  remote_user: root
+  vars:
+    locale: en_GB.UTF-8
   tasks:
 
 # yum install -y python3 && alternatives --set python /usr/bin/python3
@@ -71,7 +74,7 @@
 
   - name: Locale GB generation des locales
     locale_gen:
-      name: en_GB.UTF-8
+      name: "{{ locale }}"
       state: present
     ignore_errors: yes
 
@@ -83,20 +86,20 @@
       mode: 0644
       content: |
         ### /etc/environment
-        LANG=en_GB.UTF-8
-        LC_CTYPE=en_GB.UTF-8
-        LC_NUMERIC="en_GB.UTF-8"
-        LC_TIME="en_GB.UTF-8"
-        LC_COLLATE="en_GB.UTF-8"
-        LC_MONETARY="en_GB.UTF-8"
-        LC_MESSAGES="en_GB.UTF-8"
-        LC_PAPER="en_GB.UTF-8"
-        LC_NAME="en_GB.UTF-8"
-        LC_ADDRESS="en_GB.UTF-8"
-        LC_TELEPHONE="en_GB.UTF-8"
-        LC_MEASUREMENT="en_GB.UTF-8"
-        LC_IDENTIFICATION="en_GB.UTF-8"
-        LC_ALL=en_GB.UTF-8
+        LANG="{{ locale }}"
+        LC_CTYPE="{{ locale }}"
+        LC_NUMERIC=""{{ locale }}""
+        LC_TIME=""{{ locale }}""
+        LC_COLLATE=""{{ locale }}""
+        LC_MONETARY=""{{ locale }}""
+        LC_MESSAGES=""{{ locale }}""
+        LC_PAPER=""{{ locale }}""
+        LC_NAME=""{{ locale }}""
+        LC_ADDRESS=""{{ locale }}""
+        LC_TELEPHONE=""{{ locale }}""
+        LC_MEASUREMENT=""{{ locale }}""
+        LC_IDENTIFICATION=""{{ locale }}""
+        LC_ALL="{{ locale }}"
 
   - name: Locale GB edition du fichier de configuration
     copy:
@@ -106,10 +109,10 @@
       mode: 0644
       content: |
         ### /etc/locale.conf
-        LANG=en_GB.UTF-8
+        LANG="{{ locale }}"
 
   - name: Locale GB configuration systemd
-    command: '/usr/bin/localectl set-locale LANG=en_GB.UTF-8'
+    command: '/usr/bin/localectl set-locale LANG="{{ locale }}"'
     ignore_errors: yes
 
   - name: BASHRC
@@ -198,11 +201,20 @@
         unbind C-b
         set -g prefix C-a
         bind C-a send-prefix
-        set -g history-limit 99999
+        set -g history-limit 1000000
         set -g default-terminal 'screen-256color'
         set -g allow-rename off
-        set -g status-style 'bg=black','fg=green','bright'
-        set -g window-status-current-style 'bg=green'
+        set -g base-index 1
+        set -g status-position top
+        set -g status-fg colour250
+        set -g status-bg colour235
+        set -g status-attr dim
+        set -g pane-active-border-fg colour8
+        set -g pane-active-border-bg default
+        set -g mouse on
+        set -g status-right '#H | %F | %T '
+        set-window-option -g window-status-current-fg colour15
+        set-window-option -g window-status-current-bg colour0
         bind s set-window-option synchronize-panes
     with_items:
       - /root/.tmux.conf
@@ -282,6 +294,7 @@
         NETMASK={{ ansible_default_ipv4.netmask }}
         GATEWAY={{ ansible_default_ipv4.gateway }}
         #BOOTPROTO=dhcp
+
 # - name: ETH0 suppression des autres cartes reseau
 #   shell: |
 #     shopt -s extglob

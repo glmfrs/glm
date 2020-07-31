@@ -1,0 +1,47 @@
+---
+# gnome: disable the user list
+# https://help.gnome.org/admin/system-admin-guide/stable/login-userlist-disable.html.en
+
+- name: gdm creation du repertoire de configuration
+  file:
+    path: /etc/dconf/profile
+    state: directory
+    mode: 0600
+
+- name: cacher la liste des utilisateurs pouvant se connecter 
+  copy:
+    dest: /etc/dconf/profile/gdm
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      user-db:user
+      system-db:gdm
+      file-db:/usr/share/gdm/greeter-dconf-defaults
+
+- name: gdm creation du repertoire de configuration
+  file:
+    path: /etc/dconf/db/gdm.d
+    state: directory
+    mode: 0600
+
+- name: cacher la liste des utilisateurs pouvant se connecter
+  copy:
+    dest: /etc/dconf/db/gdm.d/00-login-screen
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      [org/gnome/login-screen]
+      disable-user-list=true
+
+- name: dconf update
+  command: /usr/bin/dconf update
+
+- name: redemarrage de gnome
+  systemd:
+    name: gdm.service
+    state: restarted
+    enabled: yes
+    masked: no
+    daemon_reload: yes

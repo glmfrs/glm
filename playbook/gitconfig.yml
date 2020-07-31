@@ -1,5 +1,5 @@
 ---
-- name: GitConfig
+- name: gitconfig
   copy:
     dest: "{{ item }}"
     group: root

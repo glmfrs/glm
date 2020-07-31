@@ -1,0 +1,165 @@
+#cloud-config
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+packages:
+  - bash-completion
+  - bind-utils
+  - bzip2
+  - ca-certificates
+  - cockpit
+  - cracklib
+  - curl
+  - epel-release
+  - git
+  - haveged
+  - htop
+  - logrotate
+  - nano
+  - net-snmp-utils
+  - nmap-ncat
+  - python3
+  - rsync
+  - sudo
+  - telnet
+  - tmux
+  - unzip
+  - vim-enhanced
+  - wget
+  - xz
+
+cloud_config_modules:
+  - resolv_conf
+  - runcmd
+  - timezone
+  - package-update-upgrade-install
+
+write_files:
+  - path: /root/.bashrc
+    owner: root:root    
+    permissions: '0644'
+    content: |
+      ###  ~/.bashrc
+      if [ -f /etc/bashrc ]; then
+          . /etc/bashrc
+      fi
+      if [ -f /etc/bash_completion ]; then
+          . /etc/bash_completion
+      fi
+      # LC_ALL=C
+      # PATH=/usr/sbin:/usr/bin:/sbin:/bin
+      # export PS1="[\u@\h \w]\\$ "
+      # export PS1="\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+      export PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
+      alias cp="cp --interactive"
+      alias mv="mv --interactive"
+      alias rm="rm --interactive"
+      alias grep="grep --color=auto"
+      alias less="less --quiet"
+      alias df="df -h"
+      alias dfa="df -haT --total"
+      alias du="du --human-readable"
+      alias ll="ls -lh --color=auto"
+      alias lla="ls -lha --color=auto"
+      alias lls="ls -lhS --color=auto"
+      alias llt="ls -lht --color=auto"
+      alias trees="tree -Csh"
+      alias grep="grep --color=auto"
+      alias ramclean="sysctl -w vm.drop_caches=3"
+      alias ipublic="curl https://api.ipify.org ; echo -e ; curl https://api6.ipify.org"
+      alias syspatch="yum repolist && yum check-update && yum update -y"
+      export HISTSIZE=99999
+      export HISTFILESIZE=999999
+      export HISTTIMEFORMAT="%F_%T "
+      export VISUAL=vim
+      export EDITOR="$VISUAL"
+      export PAGER="less"
+      export LESS_TERMCAP_mb=$'\e[1;31m'
+      export LESS_TERMCAP_md=$'\e[1;33m'
+      export LESS_TERMCAP_so=$'\e[01;44;37m'
+      export LESS_TERMCAP_us=$'\e[01;37m'
+      export LESS_TERMCAP_me=$'\e[0m'
+      export LESS_TERMCAP_se=$'\e[0m'
+      export LESS_TERMCAP_ue=$'\e[0m'
+      export GROFF_NO_SGR=1
+  - path: /etc/vimrc
+    owner: root:root
+    permissions: '0644'
+    content: |
+      """ /etc/vimrc
+      syntax on
+      set ruler
+      set paste
+      set number
+      set expandtab
+      set nocompatible
+      set shiftwidth=4
+      set softtabstop=4
+      set background=dark
+  - path: /root/.tmux.conf
+    owner: root:root
+    permissions: '0644'
+    content: |
+      ###  ~/.tmux.conf
+      unbind C-b
+      set -g prefix C-a
+      bind C-a send-prefix
+      set -g history-limit 99999
+      set -g default-terminal 'screen-256color'
+      set -g allow-rename off
+      set -g status-style 'bg=black','fg=green','bright'
+      set -g window-status-current-style 'bg=green'
+      bind s set-window-option synchronize-panes
+
+timezone: Europe/Paris
+
+locale: en_GB
+
+runcmd:
+  - alternatives --set python /usr/bin/python3
+  - yum -y remove cloud-init
+  - rm -f /etc/machine-id && systemd-machine-id-setup
+
+ssh_authorized_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
+ssh_genkeytypes: ['ed25519', 'rsa']
+
+manage_resolv_conf: true
+resolv_conf:
+  nameservers: ['9.9.9.9', '1.1.1.1']
+#  searchdomains:
+#    - a.domain.tld
+#    - b.domain.tld
+#  domain: domain.tld
+#  options:
+#    rotate: true
+#    timeout: 1
+
+# users:
+#   - default
+#   - name: user
+#     groups: ['wheel']
+#     shell: /bin/bash
+#     sudo: ['ALL=(ALL) NOPASSWD:ALL']
+#     ssh-authorized-keys:
+#       - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
+
+# preserve_hostname: False
+# hostname: host
+# fqdn: host.domain.tld
+
+# network-interfaces: |
+#   iface eth0 inet static
+#   address 12.34.56.78
+#   network 12.34.56.0
+#   netmask 255.255.255.0
+#   broadcast 12.34.56.255
+#   gateway 12.34.56.1
+# bootcmd:
+#   - ifdown eth0
+#   - ifup eth0
+
+output:
+  all: ">> /var/log/cloud-init.log"

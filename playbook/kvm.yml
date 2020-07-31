@@ -1,5 +1,5 @@
 ---
-- name: KVM installation des paquets
+- name: kvm installation des paquets
   yum:
     name:
       - qemu-kvm
@@ -13,21 +13,21 @@
     update_cache: yes
   ignore_errors: yes
 
-- name: KVM firewalld Cockpit
+- name: kvm firewalld cockpit
   firewalld:
     port: 9090/tcp
     state: enabled
     permanent: yes
     immediate: yes
 
-- name: KVM SELinux Cockpit
+- name: kvm selinux cockpit
   seport:
     ports: 9090/tcp
     proto: tcp
     setype: http_port_t
     state: present
 
-- name: KVM services
+- name: kvm services
   systemd:
     name: "{{ item }}"
     state: started

@@ -1,18 +1,18 @@
 ---
-#- name: YUM suppression de l'option FastestMirror
+#- name: yum suppression de l'option fastestmirror
 #  lineinfile:
 #    path: /etc/yum/pluginconf.d/fastestmirror.conf
 #    regexp: '^enabled='
 #    line: enabled=0
 #  ignore_errors: yes
 
-- name: YUM mise à jour de tous les paquets
+- name: yum mise à jour de tous les paquets
   yum:
     name: '*'
     state: latest
     update_cache: yes
 
-- name: YUM installation des paquets
+- name: yum installation des paquets
   yum:
     name:
       - bash-completion
@@ -42,7 +42,7 @@
     update_cache: yes
   ignore_errors: yes
 
-- name: YUM installation du depot EPEL
+- name: yum installation du depot epel
   yum:
     name: epel-release
     state: latest

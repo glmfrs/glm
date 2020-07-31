@@ -1,5 +1,5 @@
 ---
-- name: SSH clefs autorisees pour root
+- name: ssh clef autorisee pour root
   authorized_key:
     user: root
     state: present

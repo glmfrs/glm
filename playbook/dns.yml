@@ -1,5 +1,5 @@
 ---
-- name: DNS configuration des resolveurs
+- name: dns configuration des resolveurs
   copy:
     dest: /etc/resolv.conf
     owner: root

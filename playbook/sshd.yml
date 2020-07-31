@@ -1,11 +1,11 @@
 ---
-- name: SSHD clefs ssh autorisees pour root
+- name: sshd clefs ssh autorisees pour root
   authorized_key:
     user: root
     state: present
     key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
 
-- name: SSHD installation des paquets
+- name: sshd installation des paquets
   yum:
     name:
       - openssh-server
@@ -13,7 +13,7 @@
     state: latest
     update_cache: yes
 
-- name: SSHD fichier de configuration, en écoute sur 22 et 2222
+- name: sshd fichier de configuration, en écoute sur 22 et 2222
   copy:
     dest: /etc/ssh/sshd_config
     owner: root
@@ -62,7 +62,7 @@
       PasswordAuthentication yes
       # PermitRootLogin without-password prohibit-password
 
-- name: SSHD ouverture des ports 22 et 2222
+- name: sshd ouverture des ports 22 et 2222
   firewalld:
     port: "{{ item }}"
     state: enabled
@@ -72,7 +72,7 @@
       - 22/tcp
       - 2222/tcp
 
-- name: SSHD SELinux autorisation de 2222
+- name: sshd selinux autorisation de 2222
   seport:
     ports: 2222
     proto: tcp
@@ -80,7 +80,7 @@
     state: present
   ignore_errors: yes
 
-- name: SSHD demarrage automatique
+- name: sshd demarrage automatique
   systemd:
     name: sshd
     state: restarted

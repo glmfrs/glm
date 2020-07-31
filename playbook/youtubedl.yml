@@ -1,5 +1,5 @@
 ---
-- name: YouTube-DL
+- name: youtube-dl
   get_url:
     url: https://yt-dl.org/downloads/latest/youtube-dl
     dest: /usr/local/bin/youtube-dl
