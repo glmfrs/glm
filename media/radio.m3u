@@ -1,0 +1,80 @@
+#EXTM3U
+#EXTINF:0,FIP
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fip-hifi.aac
+#EXTINF:0,FIP Jazz
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipjazz-hifi.aac
+#EXTINF:0,FIP Groove
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipgroove-hifi.aac
+#EXTINF:0,FIP Rock
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fiprock-hifi.aac
+#EXTINF:0,FIP Pop
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fippop-hifi.aac
+#EXTINF:0,FIP Electro
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipelectro-hifi.aac
+#EXTINF:0,FIP Reggae
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipreggae-hifi.aac
+#EXTINF:0,FIP Nouveautés
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipnouveautes-hifi.aac
+#EXTINF:0,FIP Monde
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipworld-hifi.aac
+#EXTINF:0,France Musique
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusique-hifi.aac
+#EXTINF:0,France Musique Classique Plus
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiqueclassiqueplus-hifi.aac
+#EXTINF:0,France Musique Concerts de Radio France
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiqueconcertsradiofrance-hifi.aac
+#EXTINF:0,France Musique Easy Classique
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiqueeasyclassique-hifi.aac
+#EXTINF:0,France Musique Bande Originale de Films
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiquelabo-hifi.aac
+#EXTINF:0,France Musique Contemporaine
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiquelacontemporaine-hifi.aac
+#EXTINF:0,France Musique Jazz
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiquelajazz-hifi.aac
+#EXTINF:0,France Musique Ocora
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiqueocoramonde-hifi.aac
+#EXTINF:0,France Musique Baroque
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/francemusiquebaroque-hifi.aac
+#EXTINF:0,France Culture
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/franceculture-hifi.aac
+#EXTINF:0,France Info
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/franceinfo-hifi.aac
+#EXTINF:0,France Inter
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/franceinter-hifi.aac
+#EXTM3U
+#EXTINF:0,Nova Le Grand Mix
+#EXTVLCOPT:network-caching=1000
+http://novazz.ice.infomaniak.ch/novazz-128.mp3
+#EXTM3U
+#EXTINF:0,Nova Danse
+#EXTVLCOPT:network-caching=1000
+http://nova-dance.ice.infomaniak.ch/nova-dance-128
+#EXTM3U
+#EXTINF:0,Nova Classics
+#EXTVLCOPT:network-caching=1000
+http://nova-vnt.ice.infomaniak.ch/nova-vnt-128
+#EXTM3U
+#EXTINF:0,Nova La Nuit
+#EXTVLCOPT:network-caching=1000
+http://nova-ln.ice.infomaniak.ch/nova-ln-128

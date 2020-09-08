@@ -265,7 +265,7 @@
     lineinfile:
       path: /etc/default/grub
       regexp: '^GRUB_CMDLINE_LINUX="([0-9a-zA-Z.=_\/ ]*?)( vga=[0-9]*?)?( net\.ifnames=0)?( biosdevname=0)?"$'
-      line: 'GRUB_CMDLINE_LINUX="\1 vga=773 net.ifnames=0 biosdevname=0"'
+      line: 'GRUB_CMDLINE_LINUX="\1 vga=773   '
       backrefs: yes
 
   - name: GRUB mise a jour du BIOS
@@ -287,13 +287,13 @@
         ONBOOT=yes
         DEFROUTE=yes
         TYPE=Ethernet
-        BOOTPROTO=static
         IPV4_FAILURE_FATAL=no
         IPV6INIT=no
+        # BOOTPROTO=dhcp
+        BOOTPROTO=static
         IPADDR={{ ansible_default_ipv4.address }}
         NETMASK={{ ansible_default_ipv4.netmask }}
         GATEWAY={{ ansible_default_ipv4.gateway }}
-        #BOOTPROTO=dhcp
 
 # - name: ETH0 suppression des autres cartes reseau
 #   shell: |

@@ -1,4 +1,11 @@
 ---
+- hosts: all
+  remote_user: root
+  vars:
+    git_path:
+    git_repo:
+  tasks:
+
 - name: git installation
   yum:
     name: git
@@ -8,7 +15,7 @@
 - name: git user
   user:
     name: git
-    home: /opt/git/
+    home: "{{ git_path }}"
     shell: /usr/bin/git-shell
     expires: -1
 
@@ -20,10 +27,53 @@
 
 - name: git repertoires
   file:
-    path: /opt/git/test.git
+    path: "{{ git_path }}"/"{{ git_repo }}".git
     state: directory
     owner: git
 
 - name: git init
-  command: '/usr/bin/git init --bare /opt/git/test.git'
+  command: '/usr/bin/git init --bare "{{ git_path }}"/"{{ git_repo }}".git'
   become_user: git
+
+
+# ```shell
+# # mkdir -p </path/to/git>
+# # useradd git --uid 1999 --home </path/to/git> --shell /usr/bin/bash
+# # passwd git
+# # chown -R git:git </path/to/git>
+# # su - git
+# 
+# Configuration SSH de l'utilisateur git.
+# 
+# ```shell
+# mkdir .ssh && chmod 700 .ssh
+# touch .ssh/authorized_keys && chmod 600 .ssh/authorized_keys
+# echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM' >> ~/.ssh/authorized_keys
+# ```
+# 
+# ```shell
+# mkdir -p </Path/To/Git/Repo>.git
+# cd <repo>.git
+# git init --bare
+# ```
+# 
+# ### Sur un client
+# 
+# ```shell
+# mkdir <repo> && cd <repo>
+# git init
+# echo 'git@<SERVER>:</Path/To/Git/Repo>.git' > README.md
+# git add .
+# git commit -m 'Initialisation'
+# git remote add origin git@<SERVER>:</Path/To/Git/Repo>.git
+# git push origin master
+# ```
+# 
+# ### Sur le serveur
+# 
+# Modification du shell de l'utilisateur `git`.
+# 
+# ```shell
+# # chsh git -s $(which git-shell)
+# ```
+# 
