@@ -1,6 +1,0 @@
----
-- name: ssh clef autorisee pour root
-  authorized_key:
-    user: root
-    state: present
-    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6VOB6xka5bO3c87sNYtpWIRpswcD+ZPog8iSweokiM
