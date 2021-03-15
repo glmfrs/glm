@@ -2,7 +2,7 @@
 Host *
 SendEnv LANG LC_*
 HashKnownHosts yes
-GSSAPIAuthentication no     # si non utilisé dans connexion ssh -vvv
+GSSAPIAuthentication no
 GSSAPIDelegateCredentials no
 UseRoaming no
 ChallengeResponseAuthentication no

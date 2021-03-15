@@ -10,6 +10,19 @@ fi
 # export PS1="[\u@\h \w]\\$ "
 # export PS1="\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] "
 # export PS1="\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\\$\[$(tput sgr0)\] "
+export HISTSIZE=99999
+export HISTFILESIZE=99999
+export HISTTIMEFORMAT="%F %T "
+export PAGER="less"
+export EDITOR="vim"
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;33m'
+export LESS_TERMCAP_so=$'\e[01;44;37m'
+export LESS_TERMCAP_us=$'\e[01;37m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export GROFF_NO_SGR=1
 alias cp="cp --interactive"
 alias mv="mv --interactive"
 alias rm="rm --interactive"
@@ -25,17 +38,4 @@ alias llt="ls -lht --color=auto"
 alias trees="tree -Csh"
 alias grep="grep --color=auto"
 alias ramclean="sysctl -w vm.drop_caches=3"
-alias ipublic="curl https://api.ipify.org ; echo -e ; curl https://api6.ipify.org"
-export HISTSIZE=99999
-export HISTFILESIZE=99999
-export HISTTIMEFORMAT="%F %T "
-export PAGER="less"
-export EDITOR="vim"
-export LESS_TERMCAP_mb=$'\e[1;31m'
-export LESS_TERMCAP_md=$'\e[1;33m'
-export LESS_TERMCAP_so=$'\e[01;44;37m'
-export LESS_TERMCAP_us=$'\e[01;37m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export GROFF_NO_SGR=1
+alias ipublic="curl https://ipinfo.io ; echo -e ; curl https://api6.ipify.org"
