@@ -1,0 +1,32 @@
+# terminator /usr/bin/terminator
+# ~/.config/terminator/config
+# terminator --title <title>
+# Window renaming       Ctrl+Alt+W
+# Tab renaming          Ctrl+Alt+A
+# Terminal renaming     Ctrl+Alt+X
+
+[global_config]
+  scroll_tabbar = True
+  homogeneous_tabbar = False
+  title_transmit_bg_color = "#77767b"
+  title_receive_bg_color = "#c80003"
+  always_split_with_profile = True
+[keybindings]
+[profiles]
+  [[default]]
+    background_darkness = 0.8
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    show_titlebar = False
+    scrollbar_position = hidden
+    scrollback_infinite = True
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]

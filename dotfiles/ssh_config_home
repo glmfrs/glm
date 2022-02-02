@@ -1,8 +1,28 @@
-# ssh-keygen -G /etc/ssh/moduli.all -b 8192 && ssh-keygen -T /etc/ssh/moduli.safe -f /etc/ssh/moduli.all
-# mv /etc/ssh/moduli.safe /etc/ssh/moduli && rm /etc/ssh/moduli.all
+Host *
+    IdentitiesOnly yes
+    ServerAliveInterval 600
+# Host
+#     HostName
+#     User
+#     Port
+#     IdentityFile
+#     PasswordAuthentication no
+#     ServerAliveInterval 30
+#     UserKnownHostsFile /dev/null
+#     StrictHostKeyChecking no
+#     Compression yes
+#     Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes256-ctr
+#     MACs hmac-sha2-512,hmac-sha2-256,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com,umac-128@openssh.com
+
+### Options
+# ssh -o PreferredAuthentications=password USER@IP
+# ssh -o PubkeyAuthentication=no USER@IP
+# CanonicalizeHostName yes
+# CanonicalDomains expandium.com jdsu.net
+# CanonicalizeFallbackLocal no
+### Memo
 # ssh-keygen -t ed25519 -o -a 100 -f /.../SSH_Private_Key -C "USER@DOMAIN.TLD"
 #-------------------------------------------------------------------#
-
 Host abc*
 	Hostname host.domain.tld
 	IdentityFile /home/user/.ssh/id_ed25519
