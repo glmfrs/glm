@@ -1,37 +1,36 @@
 ### ~/.gitconfig | /.git/config
-
 [user]
-        name        =
-        email       =
-#       password    =
-#       signingkey  =
+        name =
+        email =
+#       password =
+#       signingkey =
 # [commit]
-#       gpgsign     = true
+#       gpgsign = true
 [core]
-        editor      = vim
+        editor = vim
         repositoryformatversion = 0
-        filemode    = true
-        bare        = false
+        filemode = true
+        bare = false
         logallrefupdates = true
 [color]
-        ui          = auto
+        ui = auto
 [alias]
-        logp        = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-        mg          = merge --no-ff
-        recup       = !sh -c 'git branch --track $1 origin/$1' -
+        logp = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+        mg = merge --no-ff
+        recup = !sh -c 'git branch --track $1 origin/$1' -
 [remote "origin"]
-        url         =
-        fetch       = +refs/heads/*:refs/remotes/origin/*
+        url =
+        fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "master"]
-        remote      = origin
-        merge       = refs/heads/master
+        remote = origin
+        merge = refs/heads/master
 [pull]
-        rebase      = false
-
+        rebase = false
 # [http "https://git.domain.tld/"]
-#       sslVerify   = false
+#       sslVerify = false
 # [http "https://github.com/"]
-#       proxy       = "http://User:Password@Proxy:Port"
+#       proxy = "http://User:Password@Proxy:Port"
 # [credential]
-#       helper      = cache
-#       helper      = cache --timeout 30000
+#       helper = cache
+#       helper = cache --timeout 30000
+
