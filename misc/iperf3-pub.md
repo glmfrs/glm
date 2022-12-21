@@ -13,10 +13,10 @@ iperf3 -c <IPERF3_SERVER> -p <PORT>
 
 Options :
 
-* `-c` : host  
-* `-p, --port` : Port en écoute du serveur iPerf3 (5201 par défaut)   
-* `-R, --reverse` : run in reverse mode (server sends, client receives)(download)    
-* `-4, --version4` : IPv4 uniquement   
+* `-c` : host
+* `-p, --port` : Port en écoute du serveur iPerf3 (5201 par défaut)
+* `-R, --reverse` : run in reverse mode (server sends, client receives)(download)
+* `-4, --version4` : IPv4 uniquement
 * `-6, --version6` : IPv6 uniquement
 
 ## Serveurs
