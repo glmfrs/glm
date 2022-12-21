@@ -19,7 +19,8 @@
         mg = merge --no-ff
         recup = !sh -c 'git branch --track $1 origin/$1' -
 [remote "origin"]
-        url =
+        url = https://<GIT_SERVER>/<GIT_USER>/<REPOSITORY>.git
+      # url = https://<TOKEN>@<GIT_SERVER>/<GIT_USER>/<REPOSITORY>.git
         fetch = +refs/heads/*:refs/remotes/origin/*
 [branch "master"]
         remote = origin
@@ -33,4 +34,3 @@
 # [credential]
 #       helper = cache
 #       helper = cache --timeout 30000
-
