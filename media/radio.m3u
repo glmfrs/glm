@@ -8,6 +8,9 @@ http://icecast.radiofrance.fr/fipjazz-hifi.aac
 #EXTINF:0,FIP Groove
 #EXTVLCOPT:network-caching=1000
 http://icecast.radiofrance.fr/fipgroove-hifi.aac
+#EXTINF:0,FIP Hip-Hop
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fiphiphop-hifi.aac
 #EXTINF:0,FIP Rock
 #EXTVLCOPT:network-caching=1000
 http://icecast.radiofrance.fr/fiprock-hifi.aac
@@ -20,6 +23,9 @@ http://icecast.radiofrance.fr/fipelectro-hifi.aac
 #EXTINF:0,FIP Reggae
 #EXTVLCOPT:network-caching=1000
 http://icecast.radiofrance.fr/fipreggae-hifi.aac
+#EXTINF:0,FIP Metal
+#EXTVLCOPT:network-caching=1000
+http://icecast.radiofrance.fr/fipmetal-hifi.aac
 #EXTINF:0,FIP Nouveautés
 #EXTVLCOPT:network-caching=1000
 http://icecast.radiofrance.fr/fipnouveautes-hifi.aac
