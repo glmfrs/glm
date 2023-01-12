@@ -2,8 +2,8 @@
 
 Liste de serveurs iPerf3 publics :
 
-* https://github.com/R0GGER/public-iperf3-servers
-* https://iperf3serverlist.net/
+* `https://github.com/R0GGER/public-iperf3-servers`
+* `https://iperf3serverlist.net/`
 
 ## Usage
 

@@ -6,7 +6,7 @@
 ssh-keygen -f "~/.ssh/id_ed25519" -t ed25519 -o -a 111 -C "USER@DOMAINE.TLD"
 ```
 
-## Certificats x509
+## x509
 
 ```shell
 openssl rand -base64 44
@@ -49,3 +49,4 @@ curl --silent "https://crt.sh/?q=<DOMAINE>.<TLD>" | grep -v white-space | grep "
 ```shell
 7z a -mx=9 -ms=on -p <ARCHIVE>.7z <DIRECTORY>
 ```
+
