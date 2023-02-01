@@ -50,3 +50,12 @@ curl --silent "https://crt.sh/?q=<DOMAINE>.<TLD>" | grep -v white-space | grep "
 7z a -mx=9 -ms=on -p <ARCHIVE>.7z <DIRECTORY>
 ```
 
+## User Agent
+
+Modification de l'User Agent sur les navigateurs Chromium et dérivés.
+
+1. Developer Tools (Ctrl+Shift+I)
+2. Burger Menu
+3. More Tools
+4. Network Conditions
+5. User agent
