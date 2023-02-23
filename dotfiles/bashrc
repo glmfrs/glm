@@ -7,12 +7,13 @@ if [ -f /etc/bash_completion ]; then
 fi
 # LC_ALL=C
 # PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PS1='[\u@\h \w]\\# '
 export PS1='[\u@\h \w]\\$ '
 # export PS1='\[\e[01;34m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] '
 # export PS1='\[\e[01;31m\]\u\[\e[0m\]\[\e[01;33m\]@\[\e[0m\]\[\e[01;37m\]\h\[\e[0m\]:\[\e[01;32m\]\w\[\e[0m\] \[\e[01;33m\]\$\[\e[0m\] '
 export HISTSIZE=999999
 export HISTFILESIZE=999999
-export HISTTIMEFORMAT="%F %T "
+export HISTTIMEFORMAT="[%F %T] "
 export VISUAL='vim'
 export EDITOR='$VISUAL'
 export PAGER='less'

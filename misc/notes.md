@@ -32,18 +32,6 @@ openssl pkcs12 -info -in <CERTIFICAT>.p12
 openssl req -x509 -sha512 -nodes -days 3650 -newkey rsa:4096 -keyout <PRIVATE_KEY>.key -out <CERTIFICAT>.crt -subj '/C=<PAYS>/ST=<ETAT>/L=<VILLE>/O=<ENTREPRISE>/OU=<ORGANISATION>/CN=<FQDN>/emailAddress=<EMAIL>'
 ```
 
-Liste les certificats émis pour un domaine, via https://crt.sh/ :
-
-```shell
-curl --silent "https://crt.sh/?q=<DOMAINE>.<TLD>" | grep -v white-space | grep "<TD>" | cut -d ">" -f2 | cut -d "<" -f1 | sort -u
-```
-
-Liste les certificats émis pour un domaine, via https://crt.sh/, puis vérification des enregistrements DNS :
-
-```shell
-curl --silent "https://crt.sh/?q=<DOMAINE>.<TLD>" | grep -v white-space | grep "<TD>" | cut -d ">" -f2 | cut -d "<" -f1 | sort -u | xargs -l host
-```
-
 ## 7zip
 
 ```shell
