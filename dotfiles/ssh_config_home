@@ -18,7 +18,7 @@ Host *
 # ssh -o PreferredAuthentications=password USER@IP
 # ssh -o PubkeyAuthentication=no USER@IP
 # CanonicalizeHostName yes
-# CanonicalDomains expandium.com jdsu.net
+# CanonicalDomains openbsd.com redhat.com
 # CanonicalizeFallbackLocal no
 ### Memo
 # ssh-keygen -t ed25519 -o -a 100 -f /.../SSH_Private_Key -C "USER@DOMAIN.TLD"
