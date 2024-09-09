@@ -40,6 +40,8 @@ alias llt='ls -lht --color=auto'
 alias trees='tree -Csh'
 alias ramclean='sysctl -w vm.drop_caches=3'
 alias ipublic='curl https://ipinfo.io ; echo -e'
+alias ipublic6='curl http://ipv6.lafibre.info/ip.php ; echo -e'
+# alias ipublic6='curl http://v4v6.ipv6-test.com/api/myip.php ; echo -e'
 alias iperf-free='iperf3 -c ping.online.net -p 5208'
 alias speedtest-curl='curl --max-time 10 -4 -o /dev/null https://bouygues.testdebit.info/10G.iso'
 alias heure="date +'%Y-%m-%d_%H%M%S'"
