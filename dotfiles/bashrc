@@ -5,6 +5,9 @@ fi
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 # LC_ALL=C
 # PATH=/usr/sbin:/usr/bin:/sbin:/bin
 # export PS1='[\u@\h \w]\\# '
@@ -25,24 +28,3 @@ export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export GROFF_NO_SGR=1
-alias cp='cp --interactive'
-alias mv='mv --interactive'
-alias rm='rm --interactive'
-alias grep='grep --color=auto'
-alias less='less --quiet'
-alias df='df -h'
-alias dfa='df -haT --total'
-alias du='du --human-readable'
-alias ll='ls -lh --color=auto'
-alias lla='ls -lha --color=auto'
-alias lls='ls -lhS --color=auto'
-alias llt='ls -lht --color=auto'
-alias trees='tree -Csh'
-alias ramclean='sysctl -w vm.drop_caches=3'
-alias ipublic='curl https://ipinfo.io ; echo -e'
-alias ipublic6='curl http://ipv6.lafibre.info/ip.php ; echo -e'
-# alias ipublic6='curl http://v4v6.ipv6-test.com/api/myip.php ; echo -e'
-alias iperf-free='iperf3 -c ping.online.net -p 5208'
-alias speedtest-curl='curl --max-time 10 -4 -o /dev/null https://bouygues.testdebit.info/10G.iso'
-alias heure="date +'%Y-%m-%d_%H%M%S'"
-alias ubuntupod='podman run -it --rm --volume /srv/container:/srv/data --hostname ubuntu --name ubuntupod docker.io/library/ubuntu:22.04'
