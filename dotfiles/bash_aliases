@@ -14,8 +14,7 @@ alias trees='tree -Csh'
 alias ramclean='sysctl -w vm.drop_caches=3'
 alias ipublic='curl https://ipinfo.io ; echo -e'
 alias ipublic6='curl http://ipv6.lafibre.info/ip.php ; echo -e'
-# alias ipublic6='curl http://v4v6.ipv6-test.com/api/myip.php ; echo -e'
 alias iperf-free='iperf3 -c ping.online.net -p 5208'
-alias speedtest-curl='curl --max-time 10 -4 -o /dev/null https://bouygues.testdebit.info/10G.iso'
-alias heure="date +'%Y-%m-%d_%H%M%S'"
-alias ubuntupod='podman run -it --rm --volume /srv/container:/srv/data --hostname ubuntu --name ubuntupod docker.io/library/ubuntu:22.04'
+alias speedtest-curl='curl -6 -o /dev/null https://appliwave.testdebit.info/1G.iso'
+alias heure="date +'%Y%m%dT%H%M%S'"
+alias ubuntupod='podman run -it --rm --hostname ubupod --name ubupod docker.io/library/ubuntu:24.04'
