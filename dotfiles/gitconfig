@@ -22,9 +22,9 @@
         url = https://<GIT_SERVER>/<GIT_USER>/<REPOSITORY>.git
       # url = https://<TOKEN>@<GIT_SERVER>/<GIT_USER>/<REPOSITORY>.git
         fetch = +refs/heads/*:refs/remotes/origin/*
-[branch "master"]
+[branch "main"]
         remote = origin
-        merge = refs/heads/master
+        merge = refs/heads/main
 [pull]
         rebase = false
 # [http "https://git.domain.tld/"]

@@ -1,3 +1,4 @@
+### $HOME/.bash_aliases
 alias cp='cp --interactive'
 alias mv='mv --interactive'
 alias rm='rm --interactive'
@@ -17,4 +18,4 @@ alias ipublic6='curl http://ipv6.lafibre.info/ip.php ; echo -e'
 alias iperf-free='iperf3 -c ping.online.net -p 5208'
 alias speedtest-curl='curl -6 -o /dev/null https://appliwave.testdebit.info/1G.iso'
 alias heure="date +'%Y%m%dT%H%M%S'"
-alias ubuntupod='podman run -it --rm --hostname ubupod --name ubupod docker.io/library/ubuntu:24.04'
+alias httpython='python3 -m http.server 8888'

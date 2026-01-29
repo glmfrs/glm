@@ -43,4 +43,3 @@ network:
       routes:
         - to: default
           via: <IP_GATEWAY>
-
