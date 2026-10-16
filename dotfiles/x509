@@ -1,0 +1,1 @@
+openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 30 -nodes -keyout tls-key.pem -out tls-crt.pem -subj "/C=TG/O=ARPA/CN=$(hostname -f)" -addext "subjectAltName=DNS:$(hostname -f).arpa,DNS:*.$(hostname -f).arpa,IP:$(ip -4 addr show <NIC> | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')"
