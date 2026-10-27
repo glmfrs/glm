@@ -1,3 +1,8 @@
-openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 30 -nodes -keyout tls-key.pem -out tls-crt.pem -subj "/C=TG/O=ARPA/CN=$(hostname -f)" -addext "subjectAltName=DNS:$(hostname -f).arpa,DNS:*.$(hostname -f).arpa,IP:$(ip -4 addr show <NIC> | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')"
+echo "" | openssl enc -aes256 -pbkdf2 -salt -a -e
+echo "" | openssl enc -aes256 -pbkdf2 -salt -a -d
 
+openssl enc -aes256 -pbkdf2 -salt -in FILE -out FILE.enc
+openssl enc -aes256 -pbkdf2 -salt -in FILE.enc -out FILE -d
+
+openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 30 -nodes -keyout tls-key.pem -out tls-crt.pem -subj "/C=TG/O=ARPA/CN=$(hostname -f)" -addext "subjectAltName=DNS:$(hostname -f).arpa,DNS:*.$(hostname -f).arpa,IP:$(ip -4 addr show <NIC> | grep -oP '(?<=inet )\d+\.\d+\.\d+\.\d+')"
 openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:prime256v1 -sha256 -days 30 -nodes -keyout tls-key.pem -out tls-crt.pem -subj "/C=TG/O=ARPA/CN=$(hostname -f)" -addext "subjectAltName=DNS:$(hostname -f).arpa,DNS:*.$(hostname -f).arpa,IP:$(curl --silent -4 icanhazip.com),IP:$(curl --silent -6 icanhazip.com)"
